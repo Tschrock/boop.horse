@@ -23,7 +23,7 @@ export class PonyWindowElement extends HTMLElement {
     private closeButton: HTMLDivElement
 
     /** The window shake detector. */
-    private shakeDetector: ShakeDetector
+    // private shakeDetector: ShakeDetector
 
     /** The number of recent boops. */
     private boopCount: number = 0
@@ -56,7 +56,7 @@ export class PonyWindowElement extends HTMLElement {
     private inactiveTimer: NodeJS.Timeout | null = null
 
     /** Tracks the titlebar drag coords */
-    private dragScreenXY: [number, number] | null = null
+    // private dragScreenXY: [number, number] | null = null
 
     /** The window resize debounce timeout. */
     private resizeDebounceTimer: NodeJS.Timeout | null = null
@@ -67,9 +67,9 @@ export class PonyWindowElement extends HTMLElement {
     constructor(src: Map<PonyAsset, HTMLImageElement>) {
         super()
 
-        this.shakeDetector = new ShakeDetector()
-        this.shakeDetector.addEventListener('shakestart', this.shakeStarted.bind(this))
-        this.shakeDetector.addEventListener('shakeend', this.shakeStopped.bind(this))
+        // this.shakeDetector = new ShakeDetector()
+        // this.shakeDetector.addEventListener('shakestart', this.shakeStarted.bind(this))
+        // this.shakeDetector.addEventListener('shakeend', this.shakeStopped.bind(this))
 
         // Create the shadow root
         const shadow = this.attachShadow({ mode: 'open' })
@@ -186,9 +186,9 @@ export class PonyWindowElement extends HTMLElement {
         const titlebarDiv = this.ownerDocument.createElement('div')
         titlebarDiv.classList.add('titlebar')
         titlebarDiv.draggable = true
-        titlebarDiv.addEventListener('dragstart', this.titlebarDragStart.bind(this))
-        titlebarDiv.addEventListener('drag', this.titlebarDrag.bind(this))
-        titlebarDiv.addEventListener('dragend', this.titlebarDragEnd.bind(this))
+        // titlebarDiv.addEventListener('dragstart', this.titlebarDragStart.bind(this))
+        // titlebarDiv.addEventListener('drag', this.titlebarDrag.bind(this))
+        // titlebarDiv.addEventListener('dragend', this.titlebarDragEnd.bind(this))
 
         this.closeButton = this.ownerDocument.createElement('div')
         this.closeButton.classList.add('close-button')
@@ -213,7 +213,7 @@ export class PonyWindowElement extends HTMLElement {
         const mywindow = this.ownerDocument.defaultView
         console.log('Connected to window:', mywindow)
         if (mywindow) {
-            this.shakeDetector.attach(mywindow)
+            // this.shakeDetector.attach(mywindow)
             mywindow.addEventListener('resize', this.windowResized.bind(this))
 
             if (mywindow.document.readyState !== 'loading') setTimeout(() => this.fixViewport(), 100)
@@ -224,7 +224,7 @@ export class PonyWindowElement extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this.shakeDetector.detach()
+        // this.shakeDetector.detach()
         if (this.boopTimer) clearTimeout(this.boopTimer)
         if (this.scaredTimer) clearTimeout(this.scaredTimer)
         if (this.inactiveTimer) clearTimeout(this.inactiveTimer)
@@ -232,8 +232,8 @@ export class PonyWindowElement extends HTMLElement {
 
     adoptedCallback() {
         Object.setPrototypeOf(this, PonyWindowElement.prototype);
-        this.shakeDetector.detach()
-        if (this.ownerDocument.defaultView) this.shakeDetector.attach(this.ownerDocument.defaultView)
+        // this.shakeDetector.detach()
+        // if (this.ownerDocument.defaultView) this.shakeDetector.attach(this.ownerDocument.defaultView)
         this.anyInteraction()
     }
 
@@ -298,32 +298,32 @@ export class PonyWindowElement extends HTMLElement {
         }, 1000)
     }
 
-    private titlebarDragStart(event: DragEvent) {
-        console.log('Titlebar drag start')
-        this.anyInteraction()
-        this.dragScreenXY = [event.screenX, event.screenY]
-    }
+    // private titlebarDragStart(event: DragEvent) {
+    //     console.log('Titlebar drag start')
+    //     this.anyInteraction()
+    //     this.dragScreenXY = [event.screenX, event.screenY]
+    // }
 
-    private titlebarDrag(event: DragEvent) {
-        console.log('Titlebar drag')
-        this.anyInteraction()
-        // const diffX = event.screenX - this.dragScreenXY![0]
-        // const diffY = event.screenY - this.dragScreenXY![1]
-        // console.log('Diff:', diffX, diffY)
-        // this.dragScreenXY = [event.screenX, event.screenY]
-        // this.ownerDocument.defaultView?.moveBy(diffX/2, diffY/2)
-    }
+    // private titlebarDrag(event: DragEvent) {
+    //     console.log('Titlebar drag')
+    //     this.anyInteraction()
+    //     // const diffX = event.screenX - this.dragScreenXY![0]
+    //     // const diffY = event.screenY - this.dragScreenXY![1]
+    //     // console.log('Diff:', diffX, diffY)
+    //     // this.dragScreenXY = [event.screenX, event.screenY]
+    //     // this.ownerDocument.defaultView?.moveBy(diffX/2, diffY/2)
+    // }
 
-    private titlebarDragEnd(event: DragEvent) {
-        console.log('Titlebar drag end')
-        this.anyInteraction()
-        const diffX = event.screenX - this.dragScreenXY![0]
-        const diffY = event.screenY - this.dragScreenXY![1]
-        console.log('Diff:', diffX, diffY)
-        this.dragScreenXY = [event.screenX, event.screenY]
-        this.ownerDocument.defaultView?.moveBy(diffX, diffY)
-        this.dragScreenXY = null
-    }
+    // private titlebarDragEnd(event: DragEvent) {
+    //     console.log('Titlebar drag end')
+    //     this.anyInteraction()
+    //     const diffX = event.screenX - this.dragScreenXY![0]
+    //     const diffY = event.screenY - this.dragScreenXY![1]
+    //     console.log('Diff:', diffX, diffY)
+    //     this.dragScreenXY = [event.screenX, event.screenY]
+    //     this.ownerDocument.defaultView?.moveBy(diffX, diffY)
+    //     this.dragScreenXY = null
+    // }
 
     private windowResized() {
         if (this.ignoreNextResize) {
