@@ -29,7 +29,7 @@ export class PonyWindowElement extends HTMLElement {
     private boopCount: number = 0
 
     /** The number of milliseconds to wait before resetting the boop state. */
-    private boopTimeoutMs: number = 1000
+    private boopTimeoutMs: number = 1500
 
     /** The boop timer. */
     private boopTimer: NodeJS.Timeout | null = null
@@ -44,10 +44,10 @@ export class PonyWindowElement extends HTMLElement {
     ])
 
     /** The number of milliseconds to wait before resetting the scared state. */
-    private scaredTimeoutMs: number = 1000
+    // private scaredTimeoutMs: number = 1000
 
     /** The scared timer. */
-    private scaredTimer: NodeJS.Timeout | null = null
+    // private scaredTimer: NodeJS.Timeout | null = null
 
     /** The number of milliseconds to wait before switching to the inactive state. */
     private inactiveTimeoutMs: number = 20000
@@ -226,7 +226,7 @@ export class PonyWindowElement extends HTMLElement {
     disconnectedCallback() {
         // this.shakeDetector.detach()
         if (this.boopTimer) clearTimeout(this.boopTimer)
-        if (this.scaredTimer) clearTimeout(this.scaredTimer)
+        // if (this.scaredTimer) clearTimeout(this.scaredTimer)
         if (this.inactiveTimer) clearTimeout(this.inactiveTimer)
     }
 
