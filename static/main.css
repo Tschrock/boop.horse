@@ -9,7 +9,6 @@
 
 .pony-list-item {
     margin: 10px;
-    padding: 10px;
     border: 1px solid #000;
     border-radius: 5px;
     display: flex;
@@ -17,9 +16,22 @@
     align-items: center;
     max-width: 300px;
     min-width: 150px;
+    align-self: flex-start;
+}
+
+.pony-list-item h3 {
+    margin-top: 1rem;
+    margin-bottom: 0;
 }
 
 .pony-list-item img {
     max-width: 100%;
     height: auto;
+}
+.pony-list-item .link {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid #000;
 }

@@ -1,17 +1,17 @@
 import { PonyWindowElement } from './PonyWindowElement'
 import { PonyData, PonyAsset } from './loader'
 
-const DEFAULT_PONY_FILES = [
-    'assets/ponies/0_ShyPony.zip',
-    'assets/ponies/a16_Minty.zip',
-    'assets/ponies/a25_Byte.zip',
-    'assets/ponies/a26_Cyber.zip',
-    'assets/ponies/a27_ThornRose.zip',
+const DEFAULT_PONY_FILES: [string, boolean][] = [
+    ['assets/ponies/0_ShyPony.zip', false],
+    ['assets/ponies/a16_Minty.zip', true],
+    ['assets/ponies/a25_Byte.zip', true],
+    ['assets/ponies/a26_Cyber.zip', true],
+    ['assets/ponies/a27_ThornRose.zip', true],
 ]
 
 async function loadDefaultPonies(): Promise<PonyData[]> {
     const ponies = []
-    for (const file of DEFAULT_PONY_FILES) {
+    for (const [file, downloadable] of DEFAULT_PONY_FILES) {
         // console.log(`Fetching pony zip: ${file}`)
         const res = await fetch(new URL(file, window.location.href + "/"))
         if (!res.ok) {
@@ -20,7 +20,7 @@ async function loadDefaultPonies(): Promise<PonyData[]> {
         }
         try {
             const zip = await res.arrayBuffer()
-            ponies.push(await PonyData.loadFromFile(zip))
+            ponies.push(await PonyData.loadFromFile(zip, downloadable ? file : undefined))
         } catch (e) {
             console.error(`Failed to load pony from zip: ${file}`, e)
         }
@@ -40,19 +40,35 @@ async function main() {
         const listItem = document.createElement('div')
         listItem.classList.add('pony-list-item')
 
+        const title = document.createElement('h3')
+        title.textContent = pony.name
+        listItem.appendChild(title)
+
         const img = document.createElement('img')
         img.src = pony.assets.get(PonyAsset.RESTING)!.src
         img.alt = pony.name
         img.title = pony.name
         listItem.appendChild(img)
 
-        const title = document.createElement('h3')
-        title.textContent = pony.name
-        listItem.appendChild(title)
+        const previewLink = document.createElement('a')
+        previewLink.classList.add('link')
+        previewLink.textContent = 'Preview Pony'
+        previewLink.href = "#"
+
+        listItem.appendChild(previewLink)
+
+        if (pony.sourceUrl) {
+            const sourceLink = document.createElement('a')
+            sourceLink.classList.add('link')
+            sourceLink.textContent = 'Download Pony'
+            sourceLink.href = pony.sourceUrl
+            listItem.appendChild(sourceLink)
+        }
 
         ponyList.appendChild(listItem)
 
-        listItem.addEventListener('click', () => {
+        previewLink.addEventListener('click', (e) => {
+            e.preventDefault()
             console.log('Pony clicked:', pony.name)
             const x = window.open('', undefined, 'popup,top=100,left=400,width=400,height=430,scrollbars=no,resizable=no')
             if(x) {

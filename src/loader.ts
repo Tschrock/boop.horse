@@ -37,11 +37,13 @@ function extractPonyName(folderName: string): string {
 export class PonyData {
     name: string
     assets: Map<PonyAsset, HTMLImageElement>
-    constructor(name: string, assets: Map<PonyAsset, HTMLImageElement>) {
+    sourceUrl?: string
+    constructor(name: string, assets: Map<PonyAsset, HTMLImageElement>, sourceUrl?: string) {
         this.name = name
         this.assets = assets
+        this.sourceUrl = sourceUrl
     }
-    static async loadFromFile(data: Blob | ArrayBuffer): Promise<PonyData> {
+    static async loadFromFile(data: Blob | ArrayBuffer, url?: string): Promise<PonyData> {
         const zip = await JSZip.loadAsync(data)
         let ponyFolderName = zip.name
         const assets = new Map<PonyAsset, HTMLImageElement>()
@@ -55,7 +57,7 @@ export class PonyData {
             assets.set(frame, img)
             ponyFolderName = file.name.split('/').slice(-2)[0]
         }
-        return new PonyData(extractPonyName(ponyFolderName), assets)
+        return new PonyData(extractPonyName(ponyFolderName), assets, url)
     }
     public clone(): PonyData {
         return new PonyData(this.name, new Map([...this.assets.entries()].map(([k, v]) => [k, v.cloneNode() as HTMLImageElement])))
