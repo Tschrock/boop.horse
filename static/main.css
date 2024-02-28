@@ -2,21 +2,71 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: monospace;
+    padding: 0.5rem 1.5rem;
+}
+
+.links {
+    margin: 1rem 0;
+}
+
+.biglink {
+    font-size: 1.25em;
+}
+
+.store-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.store-list-item {
+    border: 1px solid #000;
+    /* border-radius: 5px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    min-width: 250px;
+    align-self: flex-start;
+    font-family: monospace;
+}
+
+.store-list-item h2 {
+    margin: 0;
+    padding: 1rem;
+}
+
+.store-list-item img {
+    max-width: 100%;
+    height: auto;
+}
+
+.store-list-item .link {
+    display: block;
+    width: 100%;
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 1px solid #000;
+}
+
 .pony-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
 }
 
 .pony-list-item {
-    margin: 10px;
     border: 1px solid #000;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 300px;
     min-width: 150px;
     align-self: flex-start;
+    font-family: monospace;
 }
 
 .pony-list-item h3 {
@@ -34,4 +84,9 @@
     padding: 1rem;
     text-align: center;
     border-top: 1px solid #000;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 3rem;
 }
