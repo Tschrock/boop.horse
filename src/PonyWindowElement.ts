@@ -4,7 +4,6 @@ import { PonyAsset } from './loader'
 const VIEWPORT_ASPECT_RATIO = 1594 / 1714
 
 export class PonyWindowElement extends HTMLElement {
-
     /** The current pony state. */
     private state: PonyAsset = PonyAsset.RESTING
 
@@ -128,14 +127,14 @@ export class PonyWindowElement extends HTMLElement {
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: 1;
+                z-index: 2;
             }
             .pony-image {
                 width: 100%;
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: 2;
+                z-index: 1;
             }
             .pony-image img {
                 width: 100%;
