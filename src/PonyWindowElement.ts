@@ -40,7 +40,7 @@ export class PonyWindowElement extends HTMLElement {
         [4, PonyAsset.BOOPED_2],
         [7, PonyAsset.BOOPED_3],
         [12, PonyAsset.BOOPED_4],
-        [24, PonyAsset.BROKEN]
+        // [24, PonyAsset.BROKEN]
     ])
 
     /** The number of milliseconds to wait before resetting the scared state. */
