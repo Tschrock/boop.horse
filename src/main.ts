@@ -2,18 +2,18 @@ import { PonyWindowElement } from './PonyWindowElement'
 import { PonyData, PonyAsset } from './loader'
 
 const DEFAULT_PONY_FILES = [
-    '/assets/ponies/0_ShyPony.zip',
-    '/assets/ponies/a16_Minty.zip',
-    '/assets/ponies/a25_Byte.zip',
-    '/assets/ponies/a26_Cyber.zip',
-    '/assets/ponies/a27_ThornRose.zip',
+    'assets/ponies/0_ShyPony.zip',
+    'assets/ponies/a16_Minty.zip',
+    'assets/ponies/a25_Byte.zip',
+    'assets/ponies/a26_Cyber.zip',
+    'assets/ponies/a27_ThornRose.zip',
 ]
 
 async function loadDefaultPonies(): Promise<PonyData[]> {
     const ponies = []
     for (const file of DEFAULT_PONY_FILES) {
         // console.log(`Fetching pony zip: ${file}`)
-        const res = await fetch(file)
+        const res = await fetch(new URL(file, window.location.href + "/"))
         if (!res.ok) {
             console.error(`Failed to fetch pony zip: ${file}`)
             continue
