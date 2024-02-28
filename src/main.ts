@@ -41,6 +41,7 @@ async function main() {
     // console.log('Loaded default ponies.', ponies)
 
     const ponyList = document.getElementById('pony-list')
+    const loadingDiv = document.getElementById('loading-list')
     if (!ponyList) return
 
     for (const pony of ponies) {
@@ -115,6 +116,7 @@ async function main() {
             }
         })
     }
+    loadingDiv?.remove()
 }
 
 if (document.readyState !== 'loading') main().catch(console.error)
