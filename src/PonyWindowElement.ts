@@ -77,7 +77,7 @@ export class PonyWindowElement extends HTMLElement {
         style.textContent = `
             .window {
                 width: 100%;
-                height: 100%;
+                /*height: 100%;*/
                 position: relative;
             }
             .titlebar {
@@ -110,14 +110,14 @@ export class PonyWindowElement extends HTMLElement {
                 width: 20%;
                 height: 20%;
                 position: absolute;
-                top: 40%;
+                top: 45%;
                 left: 40%;
                 cursor: pointer;
                 z-index: 3;
             }
             .windowframe-image {
                 width: 100%;
-                position: absolute;
+                position: relative;
                 top: 0;
                 left: 0;
                 z-index: 0;
@@ -147,6 +147,13 @@ export class PonyWindowElement extends HTMLElement {
             .imgcache {
                 opacity: 0;
                 z-index: -100;
+            }
+            .imgcache img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
             }`
 
         const windowDiv = this.ownerDocument.createElement('div')

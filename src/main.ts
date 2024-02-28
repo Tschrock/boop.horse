@@ -84,24 +84,34 @@ async function main() {
                     openPonyWindows.delete(x)
                 })
 
-                x.document.defaultView!.customElements.define('pony-window', PonyWindowElement)
+                const meta = x.document.createElement('meta')
+                meta.name = 'viewport'
+                meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'
+                x.document.head.appendChild(meta)
 
-                const ponyWindow = new PonyWindowElement(pony.assets)
-                x.document.body.appendChild(ponyWindow)
+                const title = x.document.createElement('title')
+                title.textContent = "Boop The Pony"
+                x.document.head.appendChild(title)
 
                 const style = x.document.createElement('style')
                 style.textContent = `
                     body {
                         margin: 0;
                         padding: 0;
-                        overflow: hidden;
+                        /*overflow: hidden;*/
+                    }
+                    pony-window {
+                        width: 100%;
+                        height: 100%;
+                        display: block;
                     }
                 `
                 x.document.head.appendChild(style)
 
-                const title = x.document.createElement('title')
-                title.textContent = "Boop The Pony"
-                x.document.head.appendChild(title)
+                x.document.defaultView!.customElements.define('pony-window', PonyWindowElement)
+
+                const ponyWindow = new PonyWindowElement(pony.assets)
+                x.document.body.appendChild(ponyWindow)
             }
         })
     }
