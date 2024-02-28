@@ -17,7 +17,7 @@ export class PonyWindowElement extends HTMLElement {
     private boopButton: HTMLDivElement
 
     /** The cutiemark button element. */
-    private cutiemarkButton: HTMLDivElement
+    // private cutiemarkButton: HTMLDivElement
 
     /** The close button element. */
     private closeButton: HTMLDivElement
@@ -196,15 +196,15 @@ export class PonyWindowElement extends HTMLElement {
 
         titlebarDiv.appendChild(this.closeButton)
 
-        this.cutiemarkButton = this.ownerDocument.createElement('div')
-        this.cutiemarkButton.classList.add('cutiemark-button')
-        this.cutiemarkButton.addEventListener('click', this.cutiemarkClicked.bind(this))
+        // this.cutiemarkButton = this.ownerDocument.createElement('div')
+        // this.cutiemarkButton.classList.add('cutiemark-button')
+        // this.cutiemarkButton.addEventListener('click', this.cutiemarkClicked.bind(this))
 
         this.boopButton = this.ownerDocument.createElement('div')
         this.boopButton.classList.add('boop-button')
         this.boopButton.addEventListener('click', this.boopClicked.bind(this))
 
-        windowDiv.append(imgcacheDiv, windowframeImage, cutiemarkImage, this.ponyImageDiv, titlebarDiv, this.boopButton, this.cutiemarkButton)
+        windowDiv.append(imgcacheDiv, windowframeImage, cutiemarkImage, this.ponyImageDiv, titlebarDiv, this.boopButton)
         shadow.append(style, windowDiv)
         this.setState(PonyAsset.RESTING)
     }
