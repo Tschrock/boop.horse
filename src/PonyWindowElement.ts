@@ -50,7 +50,7 @@ export class PonyWindowElement extends HTMLElement {
     private scaredTimer: NodeJS.Timeout | null = null
 
     /** The number of milliseconds to wait before switching to the inactive state. */
-    private inactiveTimeoutMs: number = 4000
+    private inactiveTimeoutMs: number = 20000
 
     /** The inactive timer. */
     private inactiveTimer: NodeJS.Timeout | null = null
