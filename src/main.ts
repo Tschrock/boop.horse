@@ -29,9 +29,16 @@ async function loadDefaultPonies(): Promise<PonyData[]> {
 }
 
 async function main() {
+    const openPonyWindows = new Set<Window>()
+
+    window.addEventListener('beforeunload', () => {
+        for (const x of openPonyWindows) {
+            x.close()
+        }
+    })
+
     const ponies = await loadDefaultPonies()
     // console.log('Loaded default ponies.', ponies)
-
 
     const ponyList = document.getElementById('pony-list')
     if (!ponyList) return
@@ -72,6 +79,11 @@ async function main() {
             console.log('Pony clicked:', pony.name)
             const x = window.open('', undefined, 'popup,top=100,left=400,width=400,height=430,scrollbars=no,resizable=no')
             if(x) {
+                openPonyWindows.add(x)
+                x.addEventListener('beforeunload', () => {
+                    openPonyWindows.delete(x)
+                })
+
                 x.document.defaultView!.customElements.define('pony-window', PonyWindowElement)
 
                 const ponyWindow = new PonyWindowElement(pony.assets)
